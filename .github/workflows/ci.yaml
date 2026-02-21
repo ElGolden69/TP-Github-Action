@@ -5,9 +5,6 @@ on:
     branches:
     - main
 
-env:
-  DOCKER_USERNAME:${{secrets.DOCKER_USERNAME}}
-
 jobs:
   # This workflow contains a single job called  "build"
   build-and-deploy:
@@ -36,13 +33,13 @@ jobs:
 
     - name: build image spring 
       run: |
-        docker build -t $DOCKER_USERNAME/spring-app .   /springboot/app
-        docker push $DOCKER_USERNAME/spring-app
+        docker build -t ${{secrets.DOCKER_USERNAME}}/spring-app .   /springboot/app
+        docker push ${{secrets.DOCKER_USERNAME}}/spring-app
 
     - name: build image angular 
       run: |
-        docker build -t $DOCKER_USERNAME/angular-app .   /angular-app
-        docker push $DOCKER_USERNAME/angular-app
+        docker build -t ${{secrets.DOCKER_USERNAME}}/angular-app .   /angular-app
+        docker push ${{secrets.DOCKER_USERNAME}}/angular-app
 
     - name: Run docker compose 
       run: |
