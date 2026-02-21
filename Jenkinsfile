@@ -18,5 +18,15 @@ pipeline {
       }
     }
 
+    stage("Generate backend image"){
+      steps {
+       dir("deploy-app-spring-angular/springboot/app"){
+        sh "mvn clean package"
+        sh "docker build -t nouran10/springboot-app . --no-cache"
+        sh "docker push nouran10/springboot-app"
+       }
+      }
+    }
+
   }
 }
