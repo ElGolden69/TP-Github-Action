@@ -28,5 +28,24 @@ pipeline {
       }
     }
 
+    stage("Generate frontend image"){
+      steps {
+       dir("deploy-app-spring-angular/angular-app"){
+        sh "docker build -t nouran10/angular-app ."
+        sh "docker push nouran10/angular-app"
+       }
+      }
+    }
+
+    stage("Run docker compose "){
+      steps {
+       dir("deploy-app-spring-angular"){
+        sh "docker compose down --volumes"
+        sh "docker compose pull"
+        sh "docker compose up -d "
+       }
+      }
+    }
+
   }
 }
