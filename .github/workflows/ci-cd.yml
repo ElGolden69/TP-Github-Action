@@ -3,7 +3,7 @@ name: CI/CD Workflow
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   build:
@@ -19,25 +19,25 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
-     - name: build backend image
-       run: |
-         docker build -t ${{secrets.DOCKERHUB_USERNAME}}/springboot-app:latest ./backend
+      - name: build backend image
+        run: |
+          docker build -t ${{secrets.DOCKERHUB_USERNAME}}/springboot-app:latest ./backend
 
-     - name: build frontend image
-       run: |
-         docker build -t ${{secrets.DOCKERHUB_USERNAME}}/angular-app:latest ./frontend
+      - name: build frontend image
+        run: |
+          docker build -t ${{secrets.DOCKERHUB_USERNAME}}/angular-app:latest ./frontend
 
-    - name: push backend image
-      run: |
-        docker push ${{secrets.DOCKERHUB_USERNAME}}/springboot-app:latest
+      - name: push backend image
+        run: |
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/springboot-app:latest
 
-    - name: push frontend image
-      run: |
-        docker push ${{secrets.DOCKERHUB_USERNAME}}/angular-app:latest
+      - name: push frontend image
+        run: |
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/angular-app:latest
 
-    - name: test application with docker compose
-      run: |
-        docker-compose up -d
+      - name: test application with docker compose
+        run: |
+          docker-compose up -d
 
     - name: check running containers
       run: |
