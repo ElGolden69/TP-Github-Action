@@ -21,11 +21,11 @@ jobs:
 
       - name: Build backend image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest ./backend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest ./springboot/app
 
       - name: Build frontend image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/angular-app:latest ./frontend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/angular-app:latest ./angular-app
 
       - name: Push backend image
         run: |
