@@ -48,7 +48,7 @@ jobs:
 
       - name: Test application with docker compose
         run: |
-          docker-compose up -d
+          docker compose up -d
 
       - name: Check running containers
         run: |
