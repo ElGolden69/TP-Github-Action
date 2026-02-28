@@ -54,6 +54,9 @@ jobs:
         run: |
           docker ps
 
+      - name: Wait for backend to be ready
+        run: sleep 20
+
       - name: Test frontend-backend communication
         run: |
            curl -f http://localhost:8081/user/all
