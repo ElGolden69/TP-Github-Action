@@ -56,4 +56,4 @@ jobs:
 
       - name: Test frontend-backend communication
         run: |
-          docker exec $(docker ps -qf "name=angular-app") curl -s http://spring-boot-app:8081/user/all
+           curl -f http://localhost:8081/user/all
