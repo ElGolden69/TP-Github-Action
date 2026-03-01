@@ -54,12 +54,24 @@ jobs:
         run: |
           docker ps
 
-      - name: Wait for backend
+      - name: Show docker compose logs
+        run: docker compose logs
+
+      - name: Check open ports
+        run: sudo netstat -tulpn || true
+
+      - name: Test backend port directly
+        run: curl -v http://localhost:8081/user/all || true
+
+      - name: Wait for backend (retry loop)
         run: |
           for i in {1..30}; do
-            if curl -s http://localhost:4200/user/all > /dev/null; then
+            echo "Attempt $i..."
+            if curl -s http://localhost:8081/user/all > /dev/null; then
               echo "Backend ready"
-              break
+              exit 0
             fi
             sleep 2
           done
+          echo "Backend did not respond"
+          exit 1
