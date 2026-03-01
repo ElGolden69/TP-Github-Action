@@ -63,6 +63,17 @@ jobs:
       - name: Test backend port directly
         run: curl -v http://localhost:8081/user/all || true
 
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            if docker exec $(docker ps -qf "ancestor=mysql:5.7") mysqladmin ping -h "localhost" --silent; then
+              echo "MySQL is ready"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+
       - name: Wait for backend (retry loop)
         run: |
           for i in {1..30}; do
