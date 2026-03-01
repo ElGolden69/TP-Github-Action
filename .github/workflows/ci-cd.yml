@@ -55,4 +55,5 @@ jobs:
           docker ps
 
       - name: Test frontend -> backend
-        run: docker compose exec angular-app curl -s http://springboot-app:8081/user/all
+        run: |
+          docker compose exec angular-app sh -c "apk add --no-cache curl && curl -s http://springboot-app:8081/user/all"
