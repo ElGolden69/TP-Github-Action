@@ -53,3 +53,13 @@ jobs:
       - name: Check running containers
         run: |
           docker ps
+
+      - name: Wait for backend
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:4200/user/all > /dev/null; then
+              echo "Backend ready"
+              break
+            fi
+            sleep 2
+          done
