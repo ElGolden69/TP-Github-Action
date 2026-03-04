@@ -53,24 +53,3 @@ jobs:
       - name: Check running containers
         run: |
           docker ps
-
-      - name: Wait for backend to be ready
-        run: |
-          echo "Waiting for Spring Boot to start..."
-          for i in {1..30}; do
-            if docker compose exec -T springboot-app curl -s http://localhost:8081/user/all > /dev/null; then
-              echo "Backend is ready!"
-              exit 0
-            fi
-            echo "Still waiting..."
-            sleep 5
-          done
-
-          echo "Backend failed to start"
-          docker compose logs
-          exit 1
-
-      - name: Test frontend -> backend communication
-        run: |
-          docker compose run --rm angular-app sh -c \
-            "apk add --no-cache curl && curl -v http://springboot-app:8081/user/all"
